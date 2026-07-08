@@ -1,79 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>中国茶文化博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: "Microsoft YaHei", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fdfdf6;
-      color: #333;
-    }
-    header {
-      background-color: #4a7c59;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      background-color: #eee;
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #4a7c59;
-      font-weight: bold;
-    }
-    section {
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    h1, h2 {
-      color: #4a7c59;
-    }
-    footer {
-      background-color: #4a7c59;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheng81466 的个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            padding: 48px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #e0e7ff;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #4f46e5;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        .title {
+            font-size: 18px;
+            color: #4f46e5;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .bio {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            font-size: 15px;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .links a {
+            display: block;
+            padding: 14px 20px;
+            background: #f3f4f6;
+            color: #111827;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .links a:hover {
+            background: #4f46e5;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .footer {
+            margin-top: 32px;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>欢迎来到我的茶文化博客</h1>
-    <p>分享中国芳茶、名人茶事与心芝术</p>
-  </header>
-
-  <nav>
-    <a href="#">首页</a>
-    <a href="#">茶叶介绍</a>
-    <a href="#">名人茶事</a>
-    <a href="#">心芝术</a>
-    <a href="#">关于我</a>
-  </nav>
-
-  <section>
-    <h2>茶文化简介</h2>
-    <p>中国茶文化源远流长，茶不仅是一种饮品，更是一种生活方式与心灵修养。从陆羽的《茶经》到苏轼的茶诗，茶与文化、艺术、养生紧密相连。</p>
-
-    <h2>最新文章</h2>
-    <ul>
-      <li><a href="#">龙井茶的前世今生</a></li>
-      <li><a href="#">苏轼与茶的故事</a></li>
-      <li><a href="#">心芝术：茶与冥想的结合</a></li>
-    </ul>
-  </section>
-
-  <footer>
-    <p>© 2025 我的茶文化博客 | 由 GitHub Pages 驱动</p>
-  </footer>
+    <div class="card">
+        <!-- 头像区域（可改成你的 Emoji 或图片） -->
+        <div class="avatar">🧑‍💻</div>
+        
+        <!-- 1. 在这里改成你的名字 -->
+        <h1>Cheng81466</h1>
+        
+        <!-- 2. 在这里改成你的身份标签 -->
+        <div class="title">🌱 酸面包职人 · 开发者</div>
+        
+        <!-- 3. 在这里改成你的个人简介 -->
+        <div class="bio">
+            你好！我是 Cheng，<br>
+            热爱手工天然酵母面包，也爱捣鼓代码。<br>
+            欢迎交流合作 🤝
+        </div>
+        
+        <!-- 4. 在这里改成你的社交链接 -->
+        <div class="links">
+            <a href="https://github.com/Cheng81466" target="_blank">🐙 GitHub 主页</a>
+            <!-- 如果你有微信公众号/小红书/邮箱，把下面这行 # 改成链接 -->
+            <a href="#" target="_blank">📮 联系我（点此加微信）</a>
+        </div>
+        
+        <div class="footer">
+            © 2026 Cheng81466 · 用 ❤️ 和 🍞 制作
+        </div>
+    </div>
 </body>
 </html>
