@@ -1,0 +1,10 @@
+---
+layout: default
+---
+<article>
+  <h2>{{ page.title }}</h2>
+  <p class="meta">{{ page.date | date: "%Y-%m-%d" }}{% if page.categories %} · {{ page.categories | join: ' / ' }}{% endif %}</p>
+  <div class="content">
+    {{ content }}
+  </div>
+</article>
