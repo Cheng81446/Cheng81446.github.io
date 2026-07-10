@@ -1,0 +1,11 @@
+title: Cheng · 茶与哲思
+email: your-email@example.com
+description: "中国茶文化博客 — 用茶与代码写日常"
+baseurl: ""
+url: "https://Cheng81446.github.io"
+theme: minima
+paginate: 5
+
+# 可选设置：
+# markdown: kramdown
+# highlighter: rouge
