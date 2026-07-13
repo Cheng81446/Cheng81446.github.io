@@ -106,21 +106,6 @@ tags:
 
 ---
 
-## 🎨 自定义你的博客
-
-打开 `_config.yml` 文件，改这些信息：
-
-```yaml
-title: Cheng · 茶与哲思              # 网站名字
-description: "用茶与代码记录生活"   # 网站描述
-author: Cheng                        # 你的名字
-url: "https://cheng81446.github.io"  # 网站网址
-email: 你的邮箱                      # 邮箱
-timezone: Asia/Shanghai              # 时区
-```
-
----
-
 ## 📁 文件夹说明
 
 简单来说，你只需要关心这几个：
