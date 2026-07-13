@@ -131,16 +131,6 @@ tags:
 
 ---
 
-## 🤝 有建议？
-
-发现问题或有想法？欢迎：
-
-- 📝 提 Issue
-- 🔀 提 Pull Request  
-- ⭐ Star 这个仓库支持一下
-
----
-
 ## 📮 联系方式
 
 - **GitHub**: [@Cheng81446](https://github.com/Cheng81446)
