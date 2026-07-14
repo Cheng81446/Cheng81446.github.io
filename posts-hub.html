@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短文中心 - 发布和管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "Noto Serif SC", "Microsoft YaHei", serif;
+            background: linear-gradient(135deg, #f7f2eb 0%, #e8dfd2 100%);
+            min-height: 100vh;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1410 0%, #2a1f18 100%);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* 顶部导航 */
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(100, 70, 40, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark-mode .header {
+            background: #2a1f18;
+            color: #f7f2eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #3d2c1e;
+        }
+
+        body.dark-mode .header h1 {
+            color: #f7f2eb;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #3d2c1e;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a4234;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 44, 30, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e8dfd2;
+            color: #3d2c1e;
+        }
+
+        body.dark-mode .btn-secondary {
+            background: #3d2c1e;
+            color: #f7f2eb;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: #e8dfd2;
+            color: #3d2c1e;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #3d2c1e;
+            color: #f7f2eb;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 8px rgba(100, 70, 40, 0.1);
+        }
+
+        body.dark-mode .panel {
+            background: #2a1f18;
+            color: #f7f2eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #3d2c1e;
+            border-bottom: 2px solid #e8ddf0;
+            padding-bottom: 12px;
+        }
+
+        body.dark-mode .panel h2 {
+            color: #f7f2eb;
+            border-bottom-color: #3d2c1e;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #3d2c1e;
+            font-size: 14px;
+        }
+
+        body.dark-mode label {
+            color: #f7f2eb;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background: white;
+            color: #333;
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="date"],
+        body.dark-mode textarea,
+        body.dark-mode select {
+            background: #1a1410;
+            color: #f7f2eb;
+            border-color: #3d2c1e;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #3d2c1e;
+            box-shadow: 0 0 0 3px rgba(61, 44, 30, 0.1);
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+
+        body.dark-mode .tags-container {
+            background: #1a1410;
+            border-color: #3d2c1e;
+        }
+
+        .tag {
+            background: #3d2c1e;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .tag-input {
+            flex: 1;
+            min-width: 100px;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+        }
+
+        body.dark-mode .tag-input {
+            color: #f7f2eb;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        /* 短文列表 */
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .post-item {
+            background: #f9f7f3;
+            padding: 14px;
+            border-radius: 8px;
+            border-left: 4px solid #3d2c1e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .post-item {
+            background: #1a1410;
+            border-left-color: #f7f2eb;
+        }
+
+        .post-item:hover {
+            background: #f0e6d6;
+            transform: translateX(4px);
+        }
+
+        body.dark-mode .post-item:hover {
+            background: #3d2c1e;
+        }
+
+        .post-item-title {
+            font-weight: 600;
+            color: #3d2c1e;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .post-item-title {
+            color: #f7f2eb;
+        }
+
+        .post-item-meta {
+            font-size: 12px;
+            color: #8b7355;
+        }
+
+        body.dark-mode .post-item-meta {
+            color: #c9b6a2;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #8b7355;
+        }
+
+        body.dark-mode .empty-state {
+            color: #c9b6a2;
+        }
+
+        /* 预览面板 */
+        .preview-panel {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 8px rgba(100, 70, 40, 0.1);
+            display: none;
+        }
+
+        body.dark-mode .preview-panel {
+            background: #2a1f18;
+            color: #f7f2eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .preview-panel.show {
+            display: block;
+        }
+
+        .preview-content {
+            background: #f9f7f3;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .preview-content {
+            background: #1a1410;
+            color: #f7f2eb;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .links-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e8ddf0;
+        }
+
+        body.dark-mode .links-section {
+            border-top-color: #3d2c1e;
+        }
+
+        .link-group {
+            margin-bottom: 12px;
+        }
+
+        .link-group label {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #7a5d41;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .link-button:hover {
+            background: #5a4234;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .header-controls {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+
+            .panel h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部 -->
+        <div class="header">
+            <div>
+                <h1>📝 短文中心</h1>
+                <p style="font-size: 14px; color: #8b7355; margin-top: 4px;">发布、管理和浏览你的茶事隨笔</p>
+            </div>
+            <div class="header-controls">
+                <a href="tea-essays.html" class="btn btn-secondary">← 茶事隨笔</a>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✓ 短文已生成！复制内容并在 GitHub 中创建新文件
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <!-- 左侧：表单 -->
+            <div class="panel">
+                <h2>✍️ 新建短文</h2>
+                <form id="postForm">
+                    <div class="form-group">
+                        <label for="title">标题 *</label>
+                        <input type="text" id="title" placeholder="输入短文标题" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">发布日期 *</label>
+                        <input type="date" id="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">分类</label>
+                        <select id="category">
+                            <option value="茶事">茶事</option>
+                            <option value="茶人">茶人</option>
+                            <option value="茶文化">茶文化</option>
+                            <option value="品茶">品茶</option>
+                            <option value="随笔">随笔</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagInput">标签 (按 Enter 添加)</label>
+                        <div class="tags-container" id="tagsContainer">
+                            <input type="text" class="tag-input" id="tagInput" placeholder="输入标签后按 Enter">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content">内容 *</label>
+                        <textarea id="content" placeholder="在这里写你的短文..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">生成短文</button>
+                        <button type="reset" class="btn btn-secondary">清空</button>
+                    </div>
+
+                    <div class="links-section">
+                        <div class="link-group">
+                            <label>📱 快速链接</label>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <a href="post-manager.html" class="link-button" title="简化版发布工具">📲 简易发布器</a>
+                                <a href="tea-essays.html" class="link-button" title="查看所有茶事隨笔">📚 浏览隨笔</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 右侧：本地短文列表 -->
+            <div class="panel">
+                <h2>📋 本地短文</h2>
+                <div class="posts-list" id="postsList">
+                    <div class="empty-state">暂无短文</div>
+                </div>
+            </div>
+
+            <!-- 预览面板 -->
+            <div class="preview-panel" id="previewPanel">
+                <h2>👁️ 预览 - Markdown 格式</h2>
+                <div style="margin-bottom: 12px; font-size: 13px; color: #8b7355;">
+                    💾 文件名: <strong id="previewFilename"></strong>
+                </div>
+                <div class="preview-content" id="previewContent"></div>
+                <div style="margin-top: 16px;">
+                    <button class="btn btn-primary" id="copyBtn" style="width: 100%;">📋 复制到剪贴板</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('postForm');
+        const tagInput = document.getElementById('tagInput');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const previewPanel = document.getElementById('previewPanel');
+        const successMessage = document.getElementById('successMessage');
+        const themeToggle = document.getElementById('themeToggle');
+        const postsList = document.getElementById('postsList');
+        const tags = [];
+        let currentMarkdown = '';
+
+        // 初始化
+        document.getElementById('date').valueAsDate = new Date();
+        loadLocalPosts();
+        loadTheme();
+
+        // 标签管理
+        tagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const tag = tagInput.value.trim();
+                if (tag && !tags.includes(tag)) {
+                    tags.push(tag);
+                    renderTags();
+                    tagInput.value = '';
+                }
+            }
+        });
+
+        function renderTags() {
+            const tagsHTML = tags.map(tag => 
+                `<div class="tag">${tag}<button type="button" onclick="removeTag('${tag}')">×</button></div>`
+            ).join('');
+            tagsContainer.innerHTML = tagsHTML + `<input type="text" class="tag-input" id="tagInput" placeholder="输入标签后按 Enter">`;
+            document.getElementById('tagInput').addEventListener('keydown', arguments.callee.caller);
+        }
+
+        window.removeTag = (tag) => {
+            tags.splice(tags.indexOf(tag), 1);
+            renderTags();
+        };
+
+        // 表单提交
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const date = document.getElementById('date').value;
+            const category = document.getElementById('category').value;
+            const content = document.getElementById('content').value;
+
+            const dateObj = new Date(date);
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const slug = title
+                .toLowerCase()
+                .replace(/[^a-z0-9\u4e00-\u9fff]+/g, '-')
+                .replace(/^-|-$/g, '')
+                .slice(0, 40);
+            const filename = `${year}-${month}-${day}-${slug}.md`;
+
+            const tagsStr = tags.length > 0 ? `[${tags.map(t => `"${t}"`).join(', ')}]` : '[]';
+            currentMarkdown = `---
+layout: post
+title: "${title}"
+date: ${date}
+category: "${category}"
+tags: ${tagsStr}
+---
+
+${content}`;
+
+            // 保存到 localStorage
+            const posts = JSON.parse(localStorage.getItem('teaposts') || '[]');
+            posts.unshift({
+                filename,
+                title,
+                date,
+                category,
+                content: currentMarkdown,
+                timestamp: Date.now()
+            });
+            localStorage.setItem('teaposts', JSON.stringify(posts.slice(0, 50)));
+            loadLocalPosts();
+
+            // 显示预览
+            document.getElementById('previewFilename').textContent = `_posts/${filename}`;
+            document.getElementById('previewContent').textContent = currentMarkdown;
+            previewPanel.classList.add('show');
+
+            // 显示成功消息
+            successMessage.classList.add('show');
+            setTimeout(() => successMessage.classList.remove('show'), 3000);
+        });
+
+        // 复制功能
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            navigator.clipboard.writeText(currentMarkdown);
+            const btn = document.getElementById('copyBtn');
+            const originalText = btn.textContent;
+            btn.textContent = '✓ 已复制！';
+            setTimeout(() => btn.textContent = originalText, 2000);
+        });
+
+        // 加载本地短文
+        function loadLocalPosts() {
+            const posts = JSON.parse(localStorage.getItem('teaposts') || '[]');
+            if (posts.length === 0) {
+                postsList.innerHTML = '<div class="empty-state">暂无短文</div>';
+                return;
+            }
+
+            postsList.innerHTML = posts.map((post, index) => `
+                <div class="post-item" onclick="selectPost(${index})">
+                    <div class="post-item-title">${post.title}</div>
+                    <div class="post-item-meta">${post.date} · ${post.category}</div>
+                </div>
+            `).join('');
+        }
+
+        window.selectPost = (index) => {
+            const posts = JSON.parse(localStorage.getItem('teaposts') || '[]');
+            const post = posts[index];
+            currentMarkdown = post.content;
+            document.getElementById('previewFilename').textContent = `_posts/${post.filename}`;
+            document.getElementById('previewContent').textContent = post.content;
+            previewPanel.classList.add('show');
+        };
+
+        // 主题切换
+        function loadTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // 重置表单
+        form.addEventListener('reset', () => {
+            tags.length = 0;
+            renderTags();
+            previewPanel.classList.remove('show');
+            document.getElementById('date').valueAsDate = new Date();
+        });
+    </script>
+</body>
+</html>
