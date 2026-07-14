@@ -322,6 +322,7 @@
             gap: 16px;
             font-size: 13px;
             color: var(--text-secondary);
+            flex-wrap: wrap;
         }
 
         body.dark-mode .essay-meta {
@@ -357,6 +358,28 @@
             color: var(--primary-color);
         }
 
+        /* 管理按钮 */
+        .manage-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+        }
+
+        .manage-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
         /* 返回首页 */
         .back-button {
             display: inline-flex;
@@ -370,7 +393,7 @@
             font-weight: 600;
             font-size: 15px;
             transition: all 0.3s ease;
-            margin-bottom: 24px;
+            margin-right: 12px;
         }
 
         body.dark-mode .back-button {
@@ -387,6 +410,13 @@
         body.dark-mode .back-button:hover {
             background: var(--dark-primary);
             color: var(--primary-color);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
         }
 
         /* 页脚 */
@@ -434,6 +464,15 @@
             .essay-title {
                 font-size: 20px;
             }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group > * {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -476,7 +515,10 @@
 
     <!-- 主内容 -->
     <div class="main-container">
-        <a href="index.html" class="back-button">← 返回首页</a>
+        <div class="button-group">
+            <a href="index.html" class="back-button">← 返回首页</a>
+            <a href="posts-hub.html" class="manage-button">📝 短文管理中心</a>
+        </div>
 
         <div class="page-header">
             <h1>茶事隨笔</h1>
@@ -484,7 +526,7 @@
             <div class="divider"></div>
         </div>
 
-        <div class="essays-list">
+        <div class="essays-list" id="essaysList">
             <!-- 短文卡片 1 -->
             <a href="tea-essays/water-temperature.html" class="essay-card">
                 <div class="essay-header">
@@ -540,6 +582,45 @@
                 themeToggle.textContent = '🌙';
             }
         });
+
+        // 加载本地短文到页面
+        function loadLocalPosts() {
+            const posts = JSON.parse(localStorage.getItem('teaposts') || '[]');
+            if (posts.length === 0) return;
+
+            const essaysList = document.getElementById('essaysList');
+            const localPostsHTML = posts.map((post, index) => {
+                const date = new Date(post.date);
+                const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+                const excerpt = post.content.split('\n').slice(8, 11).join(' ').substring(0, 100) + '...';
+                return `
+                    <div class="essay-card" onclick="viewLocalPost(${index})" style="cursor: pointer;">
+                        <div class="essay-header">
+                            <h2 class="essay-title">${post.title}</h2>
+                            <span class="essay-date">${dateStr}</span>
+                        </div>
+                        <div class="essay-excerpt">"${excerpt}"</div>
+                        <div class="essay-meta">
+                            <span>📁 ${post.category}</span>
+                            <span>💾 本地草稿</span>
+                        </div>
+                        <div class="read-more">
+                            查看详情 →
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            essaysList.innerHTML = localPostsHTML + essaysList.innerHTML;
+        }
+
+        window.viewLocalPost = (index) => {
+            const posts = JSON.parse(localStorage.getItem('teaposts') || '[]');
+            const post = posts[index];
+            alert(`标题: ${post.title}\n\n类别: ${post.category}\n\n预览:\n${post.content.substring(0, 200)}...`);
+        };
+
+        loadLocalPosts();
     </script>
 </body>
 </html>
