@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短文管理 - 发布新文章</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 24px 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            min-height: 200px;
+            line-height: 1.6;
+        }
+
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .tag {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0;
+        }
+
+        .tag-input-field {
+            flex: 1;
+            min-width: 100px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:active {
+            background: #e0e0e0;
+        }
+
+        .preview {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .preview h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+
+        .preview-item {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .preview-label {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .preview-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 新短文</h1>
+            <p>分享你的想法和故事</p>
+        </div>
+
+        <div class="content">
+            <div class="success-message" id="successMessage">
+                ✓ 文章信息已准备好！可复制到 GitHub 创建 MD 文件
+            </div>
+
+            <div class="info-box">
+                💡 提示：填写表单后，会生成 Markdown 格式的文件内容，你可以复制到 GitHub 仓库的 `_posts` 文件夹中
+            </div>
+
+            <form id="postForm">
+                <div class="form-group">
+                    <label for="title">📌 标题 *</label>
+                    <input type="text" id="title" placeholder="输入你的文章标题" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">📅 发布日期 *</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="author">✍️ 作者</label>
+                    <input type="text" id="author" placeholder="输入作者名称" value="Cheng">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">🏷️ 分类</label>
+                    <select id="category">
+                        <option value="思考">思考</option>
+                        <option value="技术">技术</option>
+                        <option value="生活">生活</option>
+                        <option value="随笔">随笔</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">🏷️ 标签 (按 Enter 添加)</label>
+                    <div class="tags-input" id="tagsContainer">
+                        <input type="text" class="tag-input-field" id="tagInput" placeholder="输入标签后按 Enter">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">📖 内容 *</label>
+                    <textarea id="content" placeholder="在这里写你的文章内容..." required></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">生成 Markdown</button>
+                    <button type="reset" class="btn-reset">清空</button>
+                </div>
+            </form>
+
+            <div class="preview" id="preview" style="display: none;">
+                <h3>📋 预览</h3>
+                <div class="preview-item">
+                    <div class="preview-label">文件名：</div>
+                    <div class="preview-value" id="previewFilename"></div>
+                </div>
+                <div class="preview-item">
+                    <div class="preview-label">内容：</div>
+                    <div class="preview-value" style="white-space: pre-wrap; font-family: monospace; font-size: 12px; background: white; padding: 12px; border-radius: 4px; max-height: 300px; overflow-y: auto;" id="previewContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('postForm');
+        const tagInput = document.getElementById('tagInput');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const preview = document.getElementById('preview');
+        const successMessage = document.getElementById('successMessage');
+        const tags = [];
+
+        // 设置今天的日期
+        document.getElementById('date').valueAsDate = new Date();
+
+        // 标签管理
+        tagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const tag = tagInput.value.trim();
+                if (tag && !tags.includes(tag)) {
+                    tags.push(tag);
+                    renderTags();
+                    tagInput.value = '';
+                }
+            }
+        });
+
+        function renderTags() {
+            const tagsHTML = tags.map(tag => 
+                `<div class="tag">${tag}<button type="button" onclick="removeTag('${tag}')">×</button></div>`
+            ).join('');
+            const html = tagsHTML + `<input type="text" class="tag-input-field" id="tagInput" placeholder="输入标签后按 Enter">`;
+            tagsContainer.innerHTML = html;
+            document.getElementById('tagInput').addEventListener('keydown', arguments.callee.caller);
+        }
+
+        window.removeTag = (tag) => {
+            tags.splice(tags.indexOf(tag), 1);
+            renderTags();
+        };
+
+        // 表单提交
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const date = document.getElementById('date').value;
+            const author = document.getElementById('author').value;
+            const category = document.getElementById('category').value;
+            const content = document.getElementById('content').value;
+
+            // 生成文件名
+            const dateObj = new Date(date);
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const slug = title
+                .toLowerCase()
+                .replace(/[^a-z0-9\u4e00-\u9fff]+/g, '-')
+                .replace(/^-|-$/g, '')
+                .slice(0, 40);
+            const filename = `${year}-${month}-${day}-${slug}.md`;
+
+            // 生成 Markdown 内容
+            const tagsStr = tags.length > 0 ? `[${tags.map(t => `"${t}"`).join(', ')}]` : '[]';
+            const markdown = `---
+layout: post
+title: "${title}"
+date: ${date}
+author: "${author}"
+category: "${category}"
+tags: ${tagsStr}
+---
+
+${content}
+`;
+
+            // 显示预览
+            document.getElementById('previewFilename').textContent = `_posts/${filename}`;
+            document.getElementById('previewContent').textContent = markdown;
+            preview.style.display = 'block';
+
+            // 显示成功消息
+            successMessage.classList.add('show');
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+
+            // 复制功能
+            setTimeout(() => {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(markdown);
+                }
+            }, 500);
+        });
+
+        // 重置时隐藏预览
+        form.addEventListener('reset', () => {
+            tags.length = 0;
+            renderTags();
+            preview.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
