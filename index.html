@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>茶事随笔 · Cheng81446</title>
+  <style>
+    /* 全局重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #faf9f6;
+      color: #2c2c2c;
+      line-height: 1.7;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    /* 头部 */
+    .site-header {
+      border-bottom: 2px solid #f0ede8;
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+    }
+
+    .site-header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .site-header h1 a {
+      text-decoration: none;
+      color: #2c2c2c;
+    }
+
+    .site-header .sub {
+      color: #9a8b7e;
+      font-size: 15px;
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .site-header .sub span {
+      background: #eeeae5;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-left: 8px;
+    }
+
+    /* 文章列表 */
+    .post-list {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .post-list li {
+      padding: 18px 0;
+      border-bottom: 1px solid #f0ede8;
+      transition: background 0.1s;
+    }
+
+    .post-list li:last-child {
+      border-bottom: none;
+    }
+
+    .post-list .title {
+      font-size: 20px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #2c2c2c;
+      display: inline-block;
+      transition: color 0.15s;
+    }
+
+    .post-list .title:hover {
+      color: #b87c5b;
+    }
+
+    .post-list .meta {
+      display: block;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #b0a69b;
+    }
+
+    .post-list .meta .tag {
+      background: #f0ede8;
+      padding: 1px 10px;
+      border-radius: 30px;
+      font-size: 12px;
+      color: #7f6e5d;
+      margin-left: 6px;
+    }
+
+    /* 底部 */
+    .site-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #f0ede8;
+      font-size: 14px;
+      color: #b0a69b;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .site-footer a {
+      color: #b87c5b;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* 统计小标签 */
+    .count-badge {
+      background: #eeeae5;
+      padding: 1px 12px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #7f6e5d;
+      margin-left: 10px;
+    }
+
+    /* 适配手机 */
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px 18px;
+      }
+      .site-header h1 {
+        font-size: 22px;
+      }
+      .post-list .title {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- 头部 -->
+    <header class="site-header">
+      <h1><a href="/">🍵 茶事随笔</a></h1>
+      <div class="sub">
+        喝一杯，写一段
+        <span>共 {{ site.tea_essays | size }} 篇</span>
+      </div>
+    </header>
+
+    <!-- 文章列表（自动遍历 Collection） -->
+    <ul class="post-list">
+      {% for post in site.tea_essays %}
+        <li>
+          <a class="title" href="{{ post.url }}">
+            {{ post.title }}
+          </a>
+          <span class="meta">
+            {{ post.date | date: "%Y-%m-%d" }}
+            {% if post.tags %}
+              {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            {% endif %}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- 底部 -->
+    <footer class="site-footer">
+      <p>
+        🌱 用 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 和 
+        <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> 搭建
+        <br />
+        © 2026 · 慢煮光阴，细品茶
+      </p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
