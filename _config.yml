@@ -1,6 +1,6 @@
 title: Cheng · 茶与哲思
 email: your-email@example.com
-description: "用茶与代码记录生活的博客 — 中国茶文化、技术随笔、生活感悟"
+description: "用茶与代码记录生活的博客 — 中国茶文化、随笔、生活感悟"
 baseurl: ""
 url: "https://Cheng81446.github.io"
 theme: minima
@@ -10,19 +10,14 @@ paginate: 5
 markdown: kramdown
 highlighter: rouge
 
-# 自定义元数据
-author: Cheng
-timezone: Asia/Shanghai
-
 # 分类和标签配置
 categories:
   - 茶事隨筆
-  - 技術筆記
   - 生活感悟
   
-tags:
-  - 茶文化
-  - 品茶
-  - Jekyll
-  - GitHub Pages
-  - 中文博客
+# 其他已有的配置（比如 title、description）不要动，在最后面加上这一段：
+
+collections:
+  tea_essays:
+    output: true
+    permalink: /tea/:title/
