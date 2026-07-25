@@ -1,19 +1,7 @@
-title: Cheng · 茶与哲思
-email: your-email@example.com
-description: "用茶与代码记录生活的博客 — 中国茶文化、随笔、生活感悟"
-baseurl: ""
-url: "https://Cheng81446.github.io"
+title: 茶文化博客
+description: 在代码与茶汤之间游走的行者
+author: Cheng81446
 theme: minima
-paginate: 5
-
-# Jekyll 设置
-markdown: kramdown
-highlighter: rouge
-
-# 分类和标签配置
-categories:
-  - 茶事隨筆
-  - 生活感悟
   
 # 其他已有的配置（比如 title、description）不要动，在最后面加上这一段：
 
