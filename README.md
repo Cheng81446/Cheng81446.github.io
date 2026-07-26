@@ -17,8 +17,6 @@
 
 每篇文章开头需要加这些信息：
 
-# 文章内容从这里开始
-
 你的内容...
 ```
 
@@ -31,21 +29,6 @@
 | 茶事隨筆 | 茶文化、品茶经历 |
 | 技術筆記 | 编程、开发工具 |
 | 生活感悟 | 人生思考、生活哲学 |
-
----
-
-## 📁 文件夹说明
-
-简单来说，你只需要关心这几个：
-
-```
-📂 Cheng81446.github.io
-├── 📂 _posts/          ← 写文章的地方
-├── 📂 assets/
-│   └── 📂 images/      ← 放图片的地方
-├── _config.yml         ← 博客设置
-└── README.md           ← 这个文件
-```
 
 ---
 
@@ -66,13 +49,9 @@
 - **邮箱**: cpcixora@gmail.com
 - **博客**: [https://cheng81446.github.io](https://cheng81446.github.io)
 
----
-
-<div align="center">
 
 **茶不过两种姿态：浮、沉；**  
 **饮茶人不过两种姿势：拿起、放下。**
 
 ✨ Built with Jekyll · Hosted on GitHub Pages ✨
 
-</div>
