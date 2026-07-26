@@ -18,6 +18,7 @@
 每篇文章开头需要加这些信息：
 
 你的内容...
+
 ```
 
 ### 文章分类
@@ -49,9 +50,13 @@
 - **邮箱**: cpcixora@gmail.com
 - **博客**: [https://cheng81446.github.io](https://cheng81446.github.io)
 
+---
+
+<div align="center">
 
 **茶不过两种姿态：浮、沉；**  
 **饮茶人不过两种姿势：拿起、放下。**
 
 ✨ Built with Jekyll · Hosted on GitHub Pages ✨
 
+</div>
