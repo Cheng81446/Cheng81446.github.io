@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} | 茶文化博客</title>
-  <link rel="stylesheet" href="/assets/css/style.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <!-- 统一引用你的 CSS -->
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.min.css">
+    <!-- 可选：添加 favicon -->
+    <!-- <link rel="icon" href="{{ site.baseurl }}/assets/images/favicon.ico"> -->
 </head>
 <body>
-  <header>
-    <h1>茶文化博客 · Cheng81446</h1>
+    <!-- 导航栏（所有页面共用） -->
     <nav>
-      <a href="{{ '/' | relative_url }}">首页</a>
-      <a href="{{ '/about/' | relative_url }}">关于</a>
-      <a href="{{ '/posts/' | relative_url }}">文章</a>
+        <a href="{{ site.baseurl }}/">首页</a>
+        <a href="{{ site.baseurl }}/about.html">关于</a>
+        <a href="{{ site.baseurl }}/archive.html">归档</a>
     </nav>
-  </header>
 
-  <main>
-    {{ content }}
-  </main>
+    <!-- 主内容区：由 post.html 或 page.html 提供具体内容 -->
+    <main>
+        {{ content }}
+    </main>
 
-  <footer>
-    <p>&copy; 2026 Cheng81446 | Powered by GitHub Pages</p>
-  </footer>
+    <!-- 页脚（所有页面共用） -->
+    <footer>
+        <p>🍃 茶不过两种姿态：浮、沉；饮茶人不过两种姿势：拿起、放下。</p>
+        <p>&copy; {{ site.time | date: "%Y" }} Cheng81446 · 用 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 和 GitHub Pages 静静书写</p>
+    </footer>
 </body>
 </html>
