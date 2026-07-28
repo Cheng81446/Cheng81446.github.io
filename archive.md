@@ -13,7 +13,7 @@ permalink: /archive.html
       <a href="{{ post.url }}">{{ post.title }}</a>
       <span class="post-category">[{{ post.categories | join: ', ' }}]</span>
     </li>
-  {% endif %}
+  {% endfor %}
 </ul>
 
 ---
@@ -29,6 +29,6 @@ permalink: /archive.html
         <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
         <a href="{{ post.url }}">{{ post.title }}</a>
       </li>
-    {% endif %}
+    {% endfor %}
   </ul>
-{% endif %}
+{% endfor %}
