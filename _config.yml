@@ -1,5 +1,8 @@
 title: 茶文化博客
 description: 在代码与茶汤之间游走的行者
+baseurl: ""   # ← 必须是空的，不能写 "/Cheng81446.github.io"
+url: "https://cheng81446.github.io"   # ← 或者不写
+
 author: Cheng81446
 theme: minima
   
