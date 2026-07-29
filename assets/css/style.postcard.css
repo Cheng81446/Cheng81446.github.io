@@ -1,0 +1,20 @@
+.postcards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.postcard {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fdfdfd;
+}
+.postcard h3 {
+  margin-top: 0;
+}
+.readmore {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #006644;
+  text-decoration: none;
+}
