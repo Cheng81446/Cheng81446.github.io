@@ -1,0 +1,40 @@
+---
+layout: default
+title: 首页
+---
+
+<h1>🍃 在代码与茶汤之间游走</h1>
+<p>分享茶文化、技术思考与人生感悟。</p>
+
+<!-- 🍵 茶事随笔 -->
+<h2>🍵 茶事随笔</h2>
+<ul>
+  {% for post in site.tea_essays limit:5 %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- 💻 技术笔记 -->
+<h2>💻 技术笔记</h2>
+<ul>
+  {% for post in site.tech_notes limit:5 %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- 🧘 生活感悟 -->
+<h2>🧘 生活感悟</h2>
+<ul>
+  {% for post in site.life_reflections limit:5 %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+    </li>
+  {% endfor %}
+</ul>
