@@ -3,17 +3,19 @@ layout: default
 title: 首页
 ---
 
-# 在代码与茶汤之间游走的行者
+# 🍃 在代码与茶汤之间游走
+
 分享茶文化、技术思考与人生感悟。
 
----
+## 📝 最新文章
 
-## 博客简介
-这是一个关于茶文化、技术分享和生活思考的个人博客。
+{% assign all_posts = site.tea_essays | concat: site.tech_notes | concat: site.life_reflections | sort: "date" | reverse %}
 
-## 记录生活的地方
-- 🍵 **茶事随笔** — 品茶的感受、茶文化知识  
-- 🧘 **生活感悟** — 人生思考、生活哲学  
-
-## 博客理念
-- 🎯 **完全自主** — 内容掌握在自己手里  
+<ul>
+  {% for post in all_posts limit:5 %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+    </li>
+  {% endfor %}
+</ul>
