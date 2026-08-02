@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "我的第一把紫砂壶"
 date: 2026-07-15
 tags: [随笔, 茶事]
