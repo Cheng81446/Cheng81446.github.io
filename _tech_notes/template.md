@@ -1,10 +1,10 @@
 ---
-Title: "template"
-date: 2026-08-01
+Title: “慧摸版本”
+date: 2026-08-03
 tags:  {技术｝
 ---
 
-在仓库的 posts 
+posts 
 文件夹里复制这个模板，改名为新文章文件，例如：  
 tea-culture.html  
 tea-tools.html  
