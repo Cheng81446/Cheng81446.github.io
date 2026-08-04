@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav style="padding: 20px 0; border-bottom: 1px solid #e6dfd5;">
+        <a href="{{ site.baseurl }}/" style="margin-right: 20px;">首页</a>
+        <a href="{{ site.baseurl }}/about.html" style="margin-right: 20px;">关于</a>
+        <a href="{{ site.baseurl }}/archive.html">归档</a>
+    </nav>
+
+    <main style="max-width: 720px; margin: 40px auto; padding: 0 20px;">
+        {{ content }}
+    </main>
+
+    <footer style="text-align: center; padding: 40px 0; color: #999;">
+        <p>🌿 茶不过两种姿态：浮、沉；饮茶人不过两种姿势：拿起、放下。</p>
+        <p>&copy; 2026 Cheng81446 · 用 Jekyll 和 GitHub Pages 静静书写</p>
+    </footer>
+</body>
+</html>
