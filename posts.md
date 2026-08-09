@@ -1,17 +1,19 @@
 ---
-layout: default
-title: 文章列表
+layout: page
+title: 所有文章
+permalink: /posts/
 ---
 
-## 博客文章
+## 📚 全部文章
 
-这里是我记录生活、茶文化与技术思考的地方。以下是文章目录：
+{% assign all_posts = site.tea_essays | concat: site.tech_notes | concat: site.life_reflections | sort: "date" | reverse %}
 
 <ul>
-  {% for post in site.posts %}
+  {% for post in all_posts %}
     <li>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <span> — {{ post.date | date: "%Y-%m-%d" }}</span>
+      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <span style="color: #888;">[{{ post.collection | replace: "tea_essays", "🍵" | replace: "tech_notes", "💻" | replace: "life_reflections", "🧘" }}]</span>
     </li>
   {% endfor %}
 </ul>
