@@ -3,7 +3,7 @@ layout: default
 title: 首页
 ---
 
-# 在代码与茶汤之间游走的行者，細述生活中的茶香与味道。
+# 在代码与茶汤之间游走的行者，細述生活中的茶香。
 
 分享茶文化、技术思考与人生感悟。
 
@@ -20,6 +20,3 @@ title: 首页
 {% for post in all_posts limit:5 %}
 - [{{ post.title }}]({{ post.url }}) {{ post.date | date: "%Y-%m-%d" }}
 {% endfor %}
-
-.......................... 
-
