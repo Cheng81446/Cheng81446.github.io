@@ -3,7 +3,7 @@ layout: default
 title: 首页
 ---
 
-# 在代码与茶汤之间游走的行者，細述生活中的茶香。
+# 🍃 在代码与茶汤之间，游走的行者。
 
 分享茶文化、技术思考与人生感悟。
 
@@ -17,6 +17,9 @@ title: 首页
 ## 📖 最新文章
 
 {% assign all_posts = site.tea_essays | concat: site.tech_notes | concat: site.life_reflections | sort: "date" | reverse %}
-{% for post in all_posts limit:5 %}
-- [{{ post.title }}]({{ post.url }}) {{ post.date | date: "%Y-%m-%d" }}
+
+{% for post in all_posts %}
+  {% unless post.featured == true %}
+    - [{{ post.title }}]({{ post.url }}) {{ post.date | date: "%Y-%m-%d" }}
+  {% endunless %}
 {% endfor %}
