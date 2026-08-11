@@ -4,22 +4,6 @@ title: 文章归档
 permalink: /archive.html
 ---
 
-## 📚 全部文章
-
-{% assign all_posts = site.tea_essays | concat: site.tech_notes | concat: site.life_reflections | sort: "date" | reverse %}
-
-<ul>
-  {% for post in all_posts %}
-    <li>
-      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      <span style="color: #888; font-size: 0.9em;">
-        [{{ post.collection | replace: "tea_essays", "🍵 茶事随笔" | replace: "tech_notes", "💻 技术笔记" | replace: "life_reflections", "🧘 生活感悟" }}]
-      </span>
-    </li>
-  {% endfor %}
-</ul>
-
 ---
 
 ## 📂 按分类归档
