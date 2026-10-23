@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>麦野 SOURDOUGH · 一块有呼吸的酸种面包</title>
+<meta name="description" content="天然酵母 · 低温慢发酵 36 小时的酸种面包。只用面粉、水、盐，和时间。">
+<style>
+  :root{
+    --cream:#faf5ec;
+    --cream-2:#f2e8d6;
+    --ink:#3a2a1d;
+    --ink-soft:#6b5744;
+    --accent:#c2703d;
+    --crust:#b8753f;
+    --crust-dark:#7a4620;
+    --line:rgba(58,42,29,.12);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.75;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;display:block}
+  a{color:inherit}
+
+  /* ---------- 导航（简化版：只有 故事 / 面包菜单） ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+    padding:14px clamp(20px,5vw,64px);
+    background:rgba(250,245,236,.82);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    font-family:Georgia,"Songti SC",serif;
+    font-weight:700; font-size:1.02rem; letter-spacing:.02em;
+    display:flex; align-items:center; gap:8px;
+    white-space:nowrap;
+  }
+  .nav nav{display:flex; gap:32px}
+  .nav nav a{
+    text-decoration:none; font-size:.95rem; color:var(--ink-soft);
+    padding:6px 2px;
+    border-bottom:2px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  .nav nav a:hover{color:var(--accent); border-bottom-color:var(--accent)}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width:1180px; margin:0 auto;
+    display:grid; grid-template-columns:1.05fr .95fr;
+    gap:clamp(24px,5vw,64px);
+    align-items:center;
+    padding:clamp(44px,7vw,90px) clamp(20px,5vw,64px) clamp(56px,8vw,110px);
+  }
+  .eyebrow{
+    margin:0;
+    font-size:.72rem; font-weight:700;
+    letter-spacing:.2em; text-transform:uppercase;
+    color:var(--accent);
+  }
+  h1{
+    font-family:Georgia,"Songti SC",serif;
+    font-size:clamp(2.3rem,5.6vw,4rem);
+    line-height:1.16;
+    letter-spacing:-.01em;
+    margin:14px 0 22px;
+  }
+  h1 em{
+    font-style:normal; color:var(--accent);
+    position:relative; z-index:0;
+  }
+  h1 em::after{
+    content:""; position:absolute; left:-2px; right:-2px; bottom:5px;
+    height:.34em; border-radius:4px;
+    background:rgba(194,112,61,.18);
+    z-index:-1;
+  }
+  .lead{
+    margin:0; max-width:46ch;
+    font-size:1.02rem; color:var(--ink-soft);
+  }
+  .cta{display:flex; flex-wrap:wrap; gap:12px; margin:32px 0 0}
+  .btn{
+    display:inline-block; padding:14px 26px;
+    border-radius:999px; text-decoration:none;
+    font-weight:600; font-size:.94rem;
+    transition:transform .2s, background .2s, border-color .2s, color .2s;
+  }
+  .btn.primary{background:var(--ink); color:#f7efe3}
+  .btn.primary:hover{background:var(--crust-dark); transform:translateY(-2px)}
+  .btn.ghost{border:1.5px solid var(--line); color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--ink); transform:translateY(-2px)}
+
+  .facts{
+    list-style:none; display:flex; flex-wrap:wrap;
+    gap:clamp(20px,4vw,40px);
+    margin:44px 0 0; padding:0;
+  }
+  .facts li{font-size:.82rem; color:var(--ink-soft); line-height:1.5}
+  .facts strong{
+    display:block;
+    font-family:Georgia,"Songti SC",serif;
+    font-size:1.5rem; color:var(--ink); line-height:1.25;
+  }
+
+  .hero-art{display:flex; justify-content:center; align-items:center}
+  .loaf{width:min(420px,100%); filter:drop-shadow(0 26px 40px rgba(58,42,29,.18))}
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(20px)}
+    to{opacity:1; transform:none}
+  }
+  .hero-text > *{animation:rise .8s cubic-bezier(.2,.7,.3,1) both}
+  .hero-text > *:nth-child(1){animation-delay:.05s}
+  .hero-text > *:nth-child(2){animation-delay:.13s}
+  .hero-text > *:nth-child(3){animation-delay:.21s}
+  .hero-text > *:nth-child(4){animation-delay:.29s}
+  .hero-text > *:nth-child(5){animation-delay:.37s}
+  .hero-art{animation:rise 1s cubic-bezier(.2,.7,.3,1) both; animation-delay:.15s}
+
+  /* ---------- 通用区块 ---------- */
+  section{padding:clamp(56px,9vw,108px) clamp(20px,5vw,64px)}
+  .inner{max-width:1080px; margin:0 auto}
+  .sec-title{
+    font-family:Georgia,"Songti SC",serif;
+    font-size:clamp(1.65rem,3.3vw,2.45rem);
+    line-height:1.28; margin:10px 0 18px;
+  }
+  .sec-sub{margin:0 0 44px; color:var(--ink-soft); max-width:56ch}
+
+  /* ---------- 故事 ---------- */
+  .story-grid{
+    display:grid; grid-template-columns:1.1fr .9fr;
+    gap:clamp(28px,5vw,60px); align-items:start;
+  }
+  .story-grid p{color:var(--ink-soft); margin:0 0 18px}
+  blockquote{
+    margin:0; padding:26px 30px;
+    border-left:3px solid var(--accent);
+    background:var(--cream-2);
+    border-radius:0 var(--radius) var(--radius) 0;
+    font-family:Georgia,"Songti SC",serif;
+    font-size:1.06rem; line-height:1.7; color:var(--ink);
+  }
+  blockquote footer{
+    margin-top:14px; font-size:.8rem;
+    font-family:-apple-system,sans-serif;
+    color:var(--ink-soft); letter-spacing:.06em;
+  }
+
+  /* ---------- 菜单 ---------- */
+  .menu{background:var(--cream-2)}
+  .cards{
+    display:grid; gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  }
+  .card{
+    background:#fffdf9;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px 28px 26px;
+    display:flex; flex-direction:column;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 22px 44px -24px rgba(58,42,29,.4);
+  }
+  .card h3{
+    font-family:Georgia,"Songti SC",serif;
+    font-size:1.22rem; margin:0 0 4px;
+  }
+  .card .en{
+    font-size:.72rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--accent);
+    font-weight:700; margin:0 0 14px;
+  }
+  .card p{margin:0 0 22px; color:var(--ink-soft); font-size:.94rem; flex:1}
+  .price{
+    font-family:Georgia,serif; font-size:1.15rem;
+    border-top:1px dashed var(--line); padding-top:16px;
+  }
+
+  /* ---------- 工艺 ---------- */
+  .steps{
+    list-style:none; margin:0; padding:0;
+    display:grid; gap:clamp(24px,4vw,40px);
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  }
+  .steps .num{
+    display:block; line-height:1;
+    font-family:Georgia,serif; font-size:2.3rem;
+    color:var(--crust); opacity:.42; margin-bottom:10px;
+  }
+  .steps h3{
+    font-size:1.05rem; margin:0 0 8px;
+    font-family:Georgia,"Songti SC",serif;
+  }
+  .steps p{margin:0; font-size:.9rem; color:var(--ink-soft)}
+
+  /* ---------- 预订 ---------- */
+  .order{
+    background:var(--ink); color:#f7efe3;
+    text-align:center;
+  }
+  .order .sec-title{color:#f7efe3}
+  .order p{
+    color:rgba(247,239,227,.72);
+    max-width:52ch; margin:0 auto 34px;
+  }
+  .order .btn.primary{
+    background:var(--accent); color:#fff;
+  }
+  .order .btn.primary:hover{background:#a85c2d}
+  .order .btn.ghost{
+    border-color:rgba(247,239,227,.3); color:#f7efe3;
+  }
+  .order .btn.ghost:hover{border-color:#f7efe3}
+  .order .cta{justify-content:center}
+
+  /* ---------- 页脚 ---------- */
+  footer.site{
+    padding:38px clamp(20px,5vw,64px);
+    border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:12px;
+    justify-content:space-between;
+    font-size:.82rem; color:var(--ink-soft);
+  }
+  footer.site a{text-decoration:none}
+  footer.site a:hover{color:var(--accent)}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr}
+    .hero-art{order:-1; max-width:300px; margin:0 auto}
+    .story-grid{grid-template-columns:1fr}
+    .nav nav{gap:20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="logo">🍞 麦野 SOURDOUGH</div>
+  <nav>
+    <a href="#story">故事</a>
+    <a href="#menu">面包菜单</a>
+  </nav>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero" style="padding-top:clamp(44px,7vw,90px)">
+  <div class="hero-text">
+    <p class="eyebrow">天然酵母 · 低温慢发酵 36 小时</p>
+    <h1>一块<br><em>有呼吸的</em><br>酸种面包</h1>
+    <p class="lead">
+      只用面粉、水、盐，和时间。没有商业酵母，没有改良剂，
+      有的是一罐养了三年的老面种，和每天两次的喂养。
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#order">预订本周面包</a>
+      <a class="btn ghost" href="#menu">看看菜单</a>
+    </div>
+    <ul class="facts">
+      <li><strong>36h</strong>低温发酵</li>
+      <li><strong>3</strong>种基础原料</li>
+      <li><strong>250°C</strong>铸铁锅烘烤</li>
+    </ul>
+  </div>
+
+  <div class="hero-art">
+    <svg class="loaf" viewBox="0 0 320 320" role="img" aria-label="酸种面包插图">
+      <defs>
+        <radialGradient id="crustGrad" cx="36%" cy="28%" r="78%">
+          <stop offset="0%" stop-color="#dc9f60"/>
+          <stop offset="52%" stop-color="#b8753f"/>
+          <stop offset="100%" stop-color="#7a4620"/>
+        </radialGradient>
+        <linearGradient id="cutGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f8e7cc"/>
+          <stop offset="100%" stop-color="#e0b98a"/>
+        </linearGradient>
+      </defs>
+
+      <ellipse cx="160" cy="292" rx="118" ry="15" fill="rgba(58,42,29,.12)"/>
+
+      <circle cx="160" cy="156" r="124" fill="url(#crustGrad)"/>
+      <circle cx="160" cy="156" r="124" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+
+      <path d="M86 102 Q160 148 234 102" stroke="url(#cutGrad)" stroke-width="15"
+            fill="none" stroke-linecap="round"/>
+      <path d="M76 152 Q160 202 244 152" stroke="url(#cutGrad)" stroke-width="13"
+            fill="none" stroke-linecap="round" opacity=".85"/>
+      <path d="M96 200 Q160 242 224 200" stroke="url(#cutGrad)" stroke-width="10"
+            fill="none" stroke-linecap="round" opacity=".62"/>
+
+      <circle cx="112" cy="76" r="3.2" fill="rgba(255,255,255,.5)"/>
+      <circle cx="208" cy="70" r="2.4" fill="rgba(255,255,255,.42)"/>
+      <circle cx="246" cy="128" r="2.8" fill="rgba(255,255,255,.38)"/>
+      <circle cx="72" cy="128" r="2.2" fill="rgba(255,255,255,.38)"/>
+      <circle cx="160" cy="60" r="2.6" fill="rgba(255,255,255,.45)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ========== 故事 ========== -->
+<section id="story">
+  <div class="inner story-grid">
+    <div>
+      <p class="eyebrow">我们的故事</p>
+      <h2 class="sec-title">把时间，重新揉进面团里</h2>
+      <p>
+        酸种面包（Sourdough）是最古老的面包做法——在商业酵母出现之前，
+        人类就是靠一罐野生酵母菌和乳酸菌的共生体来发面的。
+      </p>
+      <p>
+        我们的面种从 2022 年开始养，每天喂两次面粉和水。
+        它有自己的脾气：天气热了就发得快，下雨天会偏酸一点。
+        所以我们每天要看它、闻它，再决定今天的面团该怎么配。
+      </p>
+      <p>
+        长时间低温发酵让麸质被充分分解，面包更好消化，
+        也带来了那种标志性的、微微回甘的酸。
+      </p>
+    </div>
+    <blockquote>
+      「你没法催一块酸种面包。它只能按自己的节奏来——而我们做的，
+      就是给它足够的时间。」
+      <footer>—— 主理人 · 老陈</footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ========== 菜单 ========== -->
+<section id="menu" class="menu">
+  <div class="inner">
+    <p class="eyebrow">本周菜单</p>
+    <h2 class="sec-title">三种常驻口味</h2>
+    <p class="sec-sub">每颗约 750g，切片后可冷冻保存两周。周三、周六出炉。</p>
+
+    <div class="cards">
+      <article class="card">
+        <h3>经典乡村</h3>
+        <p class="en">Classic Country</p>
+        <p>20% 全麦 + 80% 高筋，外壳脆、内芯湿润，酸度温和。抹黄油或直接吃都好。</p>
+        <div class="price">¥ 38 / 颗</div>
+      </article>
+
+      <article class="card">
+        <h3>核桃无花果</h3>
+        <p class="en">Walnut &amp; Fig</p>
+        <p>烘烤过的核桃碎配土耳其无花果干，坚果的油脂香和无花果的甜刚好平衡酸味。</p>
+        <div class="price">¥ 46 / 颗</div>
+      </article>
+
+      <article class="card">
+        <h3>可可酸种</h3>
+        <p class="en">Cocoa Sourdough</p>
+        <p>深烘可可碎 + 少量黑糖，微苦回甘，配咖啡或红酒都很合适。</p>
+        <div class="price">¥ 44 / 颗</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 工艺 ========== -->
+<section id="process">
+  <div class="inner">
+    <p class="eyebrow">制作工艺</p>
+    <h2 class="sec-title">从面种到出炉，36 小时</h2>
+    <p class="sec-sub">四步，没有捷径。</p>
+
+    <ol class="steps">
+      <li>
+        <span class="num">01</span>
+        <h3>喂养面种</h3>
+        <p>提前 8 小时唤醒老面种，等它涨到两倍高、闻起来像酸奶才算好。</p>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <h3>水解与折叠</h3>
+        <p>面粉和水先静置 1 小时自行水解，再每 30 分钟折叠一次，共四次。</p>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <h3>低温长发酵</h3>
+        <p>整形后进冰箱冷藏 18–24 小时，让风味慢慢长出来。</p>
+      </li>
+      <li>
+        <span class="num">04</span>
+        <h3>铸铁锅烘烤</h3>
+        <p>250°C 预热铸铁锅，加盖烘 20 分钟锁蒸汽，再开盖烘到深棕色。</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== 预订 ========== -->
+<section id="order" class="order">
+  <div class="inner">
+    <p class="eyebrow" style="color:#e0a274">预订</p>
+    <h2 class="sec-title">本周还剩 12 颗</h2>
+    <p>
+      每周二、周五晚 20:00 截单，周三、周六上午出炉。
+      同城可自取或闪送，外地顺丰冷链。
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:hello@example.com?subject=预订酸种面包">发邮件预订</a>
+      <a class="btn ghost" href="#menu">再看看菜单</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <span>© 2025 麦野 SOURDOUGH · 慢一点，也没关系</span>
+  <span>
+    <a href="#story">故事</a> ·
+    <a href="#menu">面包菜单</a>
+  </span>
+</footer>
+
+</body>
+</html>
